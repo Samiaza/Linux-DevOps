@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  mynginx:
+    image: nginx:latest
+    volumes:
+      - ./html:/usr/share/nginx/html
+    ports:
+      - "80:80"
+
+  mygrafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+
+  myprometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+      # - "9100:9100"
+    volumes:
+      - ./prometheus:/etc/prometheus
+    # network_mode: host

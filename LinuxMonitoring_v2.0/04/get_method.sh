@@ -1,0 +1,5 @@
+#!/bin/bash
+
+METHODS=(GET POST PUT PATCH DELETE)
+
+echo ${METHODS[(($RANDOM % ${#METHODS[@]}))]}
