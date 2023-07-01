@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  myserv:
+    image: myserv:new
+
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./Part6/nginx:/etc/nginx
+    ports:
+      - "80:8080"

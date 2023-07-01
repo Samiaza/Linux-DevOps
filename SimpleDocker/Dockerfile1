@@ -1,0 +1,21 @@
+FROM nginx:latest
+
+COPY ./server/server.c /server.c
+COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
+COPY ./start.sh /start.sh
+
+RUN apt-get update && \
+    apt-get install --no-install-recommends -y gcc \
+                                        libc6-dev \
+                                        libfcgi-dev \
+                                        spawn-fcgi && \
+    rm -rf /var/lib/apt/lists && \
+    gcc server.c -lfcgi -o hello && \
+    chown nginx:nginx /start.sh && \
+    chown -R nginx:nginx /etc/nginx && \
+    chown -R nginx:nginx /var && \
+    chown -R nginx:nginx /run
+
+USER nginx
+
+CMD ["/start.sh"]
